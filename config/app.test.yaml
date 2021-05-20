@@ -1,0 +1,37 @@
+# server配置
+server:
+  port: 8080
+  readTimeout: 60
+  writeTimeout: 60
+
+# app配置
+app:
+  pageSize: 10
+
+# log配置
+log:
+  fileName: app
+  ext: .log
+  savePath: storage/logs
+
+# MySQL配置
+mysql:
+  host: 192.168.111.190
+  port: 3306
+  database: blog
+  username: root
+  password: root
+  prefix: blog_
+
+
+# Redis配置
+redis:
+  host: 192.168.111.128
+  port: 6379
+
+# RabbitMQ配置
+rabbitmq:
+  host: 192.168.111.128
+  port: 5672
+  username: root
+  password: root
