@@ -4,6 +4,8 @@ import (
 	"gin/routes"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
+	"time"
 )
 
 func main() {
@@ -15,7 +17,15 @@ func main() {
 	gin.SetMode(gin.DebugMode)
 
 	//路由初始化
-	r := routes.InitRouter()
-	err := r.Run()
+	router := routes.InitRouter()
+	server := &http.Server{
+		Addr:              ":8080",
+		Handler:           router,
+		TLSConfig:         nil,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		MaxHeaderBytes:    1 << 20,
+	}
+	err := server.ListenAndServe()
 	log.Fatalf("运行出错，错误为：%v\n", err)
 }

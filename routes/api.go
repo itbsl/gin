@@ -1,7 +1,9 @@
 package routes
 
 import (
+	"gin/app/controllers/article"
 	"gin/app/controllers/demo"
+	"gin/app/controllers/tag"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -19,6 +21,24 @@ func InitRouter() *gin.Engine {
 	//注册路由
 	v1 := r.Group("/v1")
 	{
+		//文章
+		v1.GET("/articles", article.List)
+		v1.GET("/articles/:id", article.Get)
+		v1.POST("/articles", article.Create)
+		v1.PUT("/articles/:id", article.Update)
+		v1.DELETE("/articles/:id", article.Delete)
+		v1.PATCH("/articles/:id/state", article.Update)
+
+		//标签
+		tagController := tag.NewTag()
+		v1.GET("/tags", tagController.List)
+		v1.GET("/tags/:id", tagController.Get)
+		v1.POST("/tags", tagController.Create)
+		v1.PUT("/tags/:id", tagController.Update)
+		v1.DELETE("/tags/:id", tagController.Delete)
+		v1.PATCH("/tags/:id/state", tagController.Update)
+
+		//demo示例
 		demoGroup := v1.Group("/demo")
 		{//大括号没实际意义，只是为了让每一组看起来更像是一组
 			demoGroup.GET("/index", demo.Index)
